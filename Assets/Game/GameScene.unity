@@ -1149,6 +1149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   cardPrefab: {fileID: 3951835223294012418, guid: 176f5ca27b7511c4b9ed8ba18f9494b2, type: 3}
+  spawnAreaSize: {x: 32, y: 16}
+  cardHeight: 5
+  positionJitter: 0.35
 --- !u!4 &865636131
 Transform:
   m_ObjectHideFlags: 0
