@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float cooldown = 1.2f;
     bool isCooldown;
 
+    public bool isDroppedMoment;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -116,6 +119,10 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(new Vector3(rb.position.x, startY, rb.position.z));
 
         canMove = true;
+        
+        isDroppedMoment = true;
+        yield return new WaitForSeconds(0.05f);
+        isDroppedMoment = false;
 
         // cooldown
         yield return new WaitForSeconds(cooldown);
