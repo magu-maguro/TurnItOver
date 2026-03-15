@@ -337,3 +337,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardController
   isFaceUp: 1
   flipCooldown: 0.1
+  flipForce: 4
+  flipDuration: 0.5
