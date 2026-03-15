@@ -1,30 +1,59 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Rigidbody rb;
     [SerializeField] float moveSpeed = 5f;
-    [SerializeField] float jumpHeight = 2f;
-    [SerializeField] float jumpDuration = 0.4f;
-    [SerializeField] float cooldown = 1.5f;
+    [SerializeField] float rotationSpeed = 12f;
+
+    [SerializeField] float jumpForce = 7f;
+    [SerializeField] float cooldown = 1.2f;
 
     bool isCooldown;
 
     Vector3 moveDirection;
 
-    void Update()
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
     {
         Move();
+        Rotate();
     }
 
     public void SetMoveInput(Vector2 input)
     {
-        moveDirection = new Vector3(input.x, 0, input.y);
+        moveDirection = new Vector3(input.x, 0, input.y).normalized;
     }
 
     void Move()
     {
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        Vector3 velocity = moveDirection * moveSpeed;
+
+        rb.linearVelocity = new Vector3(
+            velocity.x,
+            rb.linearVelocity.y,
+            velocity.z
+        );
+    }
+
+    void Rotate()
+    {
+        if (moveDirection.sqrMagnitude < 0.001f)
+            return;
+
+        Quaternion target = Quaternion.LookRotation(moveDirection);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            target,
+            rotationSpeed * Time.fixedDeltaTime
+        );
     }
 
     public void TryJumpDrop()
@@ -38,24 +67,13 @@ public class PlayerMovement : MonoBehaviour
     {
         isCooldown = true;
 
-        Vector3 start = transform.position;
-
-        float timer = 0;
-
         // ジャンプ
-        while (timer < jumpDuration)
-        {
-            timer += Time.deltaTime;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-            float height = Mathf.Sin(timer / jumpDuration * Mathf.PI) * jumpHeight;
-
-            transform.position = start + Vector3.up * height;
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(0.4f);
 
         // ドロップ
-        transform.position = start;
+        rb.AddForce(Vector3.down * jumpForce * 1.5f, ForceMode.Impulse);
 
         yield return new WaitForSeconds(cooldown);
 
