@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
@@ -9,9 +11,14 @@ public class CardManager : MonoBehaviour
     [SerializeField] private float cardHeight = 7f;
     [SerializeField, Range(0f, 0.45f)] private float positionJitter = 0.35f;
 
+    [SerializeField] private TextMeshProUGUI faceUpCountText;
+    [SerializeField] private TextMeshProUGUI faceDownCountText;
+    public int faceUpCount { get; private set; }
+
     void Start()
     {
-        //SetupCards(20); // 20枚のカードを生成
+        faceUpCountText.gameObject.SetActive(false);
+        faceDownCountText.gameObject.SetActive(false);
     }
 
     public void SetupCards(int numberOfCards)
@@ -23,6 +30,29 @@ public class CardManager : MonoBehaviour
             cards.Add(newCard);
             newCard.transform.parent = this.transform;
             newCard.isFaceUp = isFaceUp;
+        }
+    }
+
+    public IEnumerator GetFaceUpCardCount()
+    {
+        faceUpCountText.gameObject.SetActive(true);
+        faceDownCountText.gameObject.SetActive(true);
+        faceUpCount = 0;
+        int faceDownCount = 0;
+        foreach (var card in cards)
+        {
+            card.FloatCard();
+            if (card.isFaceUp)
+            {
+                faceUpCount++;
+                faceUpCountText.text = "You: "+faceUpCount;
+            }
+            else
+            {
+                faceDownCount++;
+                faceDownCountText.text = "Enemy: " + faceDownCount;
+            }
+            yield return new WaitForSeconds(0.2f);
         }
     }
 

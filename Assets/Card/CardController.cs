@@ -64,4 +64,9 @@ public class CardController : MonoBehaviour
 
         Debug.Log("Card flipped! Now face " + (isFaceUp ? "up" : "down"));
     }
+
+    public void FloatCard()
+    {
+        rb.AddForce(Vector3.up * flipForce, ForceMode.Impulse);
+    }
 }

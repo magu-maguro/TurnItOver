@@ -21,9 +21,6 @@ public class TimerManager : MonoBehaviour
             timer--;
             DisplayTime(timer);
         }
-        // タイムアップの処理
-        Debug.Log("Finish!");
-        yield return new WaitForSeconds(1f);
     }
 
     private void DisplayTime(int time)
