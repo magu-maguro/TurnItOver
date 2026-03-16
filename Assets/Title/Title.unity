@@ -1445,6 +1445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '>>>SoundManager<<<'
       objectReference: {fileID: 0}
+    - target: {fileID: 1829211198091535656, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8368734426754924399, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

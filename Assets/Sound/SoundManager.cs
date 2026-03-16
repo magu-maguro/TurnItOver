@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
-        if (BGMSources.Count > 0)
+        if (BGMSources.Count > 0 && BGMSources[0].clip != null)
         {
             currentBGM = BGMSources[0];
             currentBGM.Play();

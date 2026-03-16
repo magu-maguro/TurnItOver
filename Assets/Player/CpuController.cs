@@ -57,7 +57,7 @@ public class CpuController : MonoBehaviour
         CardController targetCard = GetNearestFaceUpCard();
         float normalizedAccuracy = Mathf.Clamp01(accuracy);
         float jumpDistanceThreshold = Mathf.Lerp(optimalDistance * 0.5f, optimalDistance, normalizedAccuracy);
-        if (GetDistanceToCard(targetCard) < jumpDistanceThreshold)
+        if (GetDistanceToCard(targetCard) < jumpDistanceThreshold && (float)Random.Range(0, 1) < normalizedAccuracy)
         {
             movement.TryJumpDrop();
             nextJumpTime = Time.time + GetJumpCooldown(normalizedAccuracy);
