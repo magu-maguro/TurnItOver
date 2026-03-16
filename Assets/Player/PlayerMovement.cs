@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         if (!canMove) return;
-        Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 dir = new Vector3(moveInput.x, 0, moveInput.y).normalized;
         Vector3 velocity = dir * moveSpeed;
 
         // Y軸の速度はそのまま残す

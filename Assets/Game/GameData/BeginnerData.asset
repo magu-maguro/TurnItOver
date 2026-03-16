@@ -16,4 +16,4 @@ MonoBehaviour:
   cardNum: 20
   threshold: 10
   CPUNum: 1
-  CPUAccuracy: 0.2
+  CPUAccuracy: 0.4

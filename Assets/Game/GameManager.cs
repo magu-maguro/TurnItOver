@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         // 2
         //プレイヤー, CPU出現
-        playerManager.SpawnPlayer(gameData.CPUNum);
+        playerManager.SpawnPlayer(gameData.CPUNum, gameData.CPUAccuracy);
         centerTextManager.ShowText("2");
         yield return new WaitForSeconds(1f);
         // 1

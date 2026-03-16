@@ -211,6 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaca762f6dab06140aacd1c887c8ee24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CpuController
+  accuracy: 0.5
+  cardManager: {fileID: 0}
+  optimalDistance: 3
 --- !u!114 &8579075283953292026
 MonoBehaviour:
   m_ObjectHideFlags: 0

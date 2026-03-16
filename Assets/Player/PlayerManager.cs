@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
         spawnPointsList = new List<Vector3[]>() { spawnPoints1, spawnPoints2, spawnPoints3 };
     }
 
-    public void SpawnPlayer(int cpuNum)
+    public void SpawnPlayer(int cpuNum, float cpuAccuracy)
     {
         // プレイヤーの生成
         player = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
@@ -41,6 +41,7 @@ public class PlayerManager : MonoBehaviour
         {
             GameObject cpu = Instantiate(CPUPrefab, spawnPointsList[cpuNum-1][i], Quaternion.identity);
             cpu.GetComponent<CpuController>().DisallowInput();
+            cpu.GetComponent<CpuController>().accuracy = cpuAccuracy;
             cpuList.Add(cpu);
         }
     }
