@@ -50,23 +50,28 @@ public class GameManager : MonoBehaviour
         // 3
         cardManager.SetupCards(gameData.cardNum);
         centerTextManager.ShowText("3");
+        StartCoroutine(SoundManager.PlaySE(1));
         yield return new WaitForSeconds(1f);
         // 2
         //プレイヤー, CPU出現
         playerManager.SpawnPlayer(gameData.CPUNum, gameData.CPUAccuracy);
         centerTextManager.ShowText("2");
+        StartCoroutine(SoundManager.PlaySE(1));
         yield return new WaitForSeconds(1f);
         // 1
         centerTextManager.ShowText("1");
+        StartCoroutine(SoundManager.PlaySE(1));
         yield return new WaitForSeconds(1f);
         // start!
         centerTextManager.ShowText("Start!");
+        StartCoroutine(SoundManager.PlaySE(2));
         //gameStarted = true;
         //プレイヤー入力受け付け,タイマー開始
         playerManager.AllowPlayerInput();
         yield return StartCoroutine(timerManager.UpdateTimer(timer));
         playerManager.DisallowPlayerInput();
         centerTextManager.ShowText("Finish!");
+        StartCoroutine(SoundManager.PlaySE(3));
         yield return new WaitForSeconds(1f);
         yield return StartCoroutine(JudgeGame());
         yield return new WaitForSeconds(1f);
@@ -85,10 +90,12 @@ public class GameManager : MonoBehaviour
         if(cardManager.faceUpCount >= gameData.threshold)
         {
             centerTextManager.ShowResultText("You Win!");
+            StartCoroutine(SoundManager.PlaySE(5));
         }
         else
         {
             centerTextManager.ShowResultText("You Lose...");
+            StartCoroutine(SoundManager.PlaySE(6, 1.2f));
         }
     }
 

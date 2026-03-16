@@ -121,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
         
         isDroppedMoment = true;
+        StartCoroutine(SoundManager.PlaySE(0));
         yield return new WaitForSeconds(0.05f);
         isDroppedMoment = false;
 

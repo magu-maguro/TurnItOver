@@ -68,5 +68,6 @@ public class CardController : MonoBehaviour
     public void FloatCard()
     {
         rb.AddForce(Vector3.up * flipForce, ForceMode.Impulse);
+        StartCoroutine(SoundManager.PlaySE(4));
     }
 }
