@@ -2966,8 +2966,12 @@ PrefabInstance:
       value: '>>>SoundManager<<<'
       objectReference: {fileID: 0}
     - target: {fileID: 1829211198091535656, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 056565a02ed994545a1040e094dc3fc1, type: 3}
+    - target: {fileID: 1829211198091535656, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
       propertyPath: m_PlayOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8368734426754924399, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
       propertyPath: m_Pivot.x
@@ -3050,7 +3054,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3270439744418210482, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f5d2e5a5078314db3f36540059c14c, type: 3}
