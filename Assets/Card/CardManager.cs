@@ -11,7 +11,7 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
-        SetupCards(20); // 20枚のカードを生成
+        //SetupCards(20); // 20枚のカードを生成
     }
 
     public void SetupCards(int numberOfCards)

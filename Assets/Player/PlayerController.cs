@@ -41,4 +41,17 @@ public class PlayerController : MonoBehaviour
     {
         movement.TryJumpDrop();
     }
+
+    //-----------api
+    public void DisallowInput()
+    {
+        inputActions.InGame.Disable();
+        inputActions.DoNothing.Enable();
+    }
+
+    public void AllowInput()
+    {
+        inputActions.DoNothing.Disable();
+        inputActions.InGame.Enable();
+    }
 }
