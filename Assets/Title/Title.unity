@@ -1534,7 +1534,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Font\n\tKaisei Opti (SIL Open Font License)\nBGM\r\n\t\u904A\u5712\u5730\u30C7\u30A3\u30AD\u30B7\u30FC
-    / \u308C\u3044\u306A (DOVA-SYNDROME)"
+    / \u308C\u3044\u306A (DOVA-SYNDROME)\nSE\n\t\u52B9\u679C\u97F3\u30E9\u30DC\n\thttps://soundeffect-lab.info/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 210f29b933480e945ae38f85ffb8a56b, type: 2}
   m_sharedMaterial: {fileID: -1386128619648971157, guid: 210f29b933480e945ae38f85ffb8a56b, type: 2}

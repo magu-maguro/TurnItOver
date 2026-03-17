@@ -8,11 +8,13 @@ public class CenterTextManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI centerText;
     [SerializeField] private TextMeshProUGUI resultText;
+    [SerializeField] private TextMeshProUGUI failedText;
     private Tween currentTween;
     void Start()
     {
         centerText.rectTransform.localPosition = Vector3.right * 1000;
         resultText.rectTransform.localPosition = Vector3.right * 1000;
+        failedText.rectTransform.localPosition = Vector3.right * 1000;
     }
 
     public void ShowText(string text)
@@ -41,13 +43,14 @@ public class CenterTextManager : MonoBehaviour
 
     public void ShowResultText(string text)
     {
+        TextMeshProUGUI targetText = text == "You Lose..." ? failedText : resultText;
         resultText.rectTransform.localPosition = Vector3.right * 1000;
         if (currentTween != null && currentTween.IsActive())
         {
             currentTween.Kill();
         }
 
-        resultText.text = text;
-        currentTween = resultText.rectTransform.DOLocalMoveX(0, 0.5f).SetEase(Ease.OutCubic);
+        targetText.text = text;
+        currentTween = targetText.rectTransform.DOLocalMoveX(0, 0.5f).SetEase(Ease.OutCubic);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class CardManager : MonoBehaviour
 {
@@ -46,11 +47,19 @@ public class CardManager : MonoBehaviour
             {
                 faceUpCount++;
                 faceUpCountText.text = "You: "+faceUpCount;
+                faceUpCountText.transform.DOScale(1.2f, 0.1f).OnComplete(() =>
+                {
+                    faceUpCountText.transform.DOScale(1f, 0.1f);
+                });
             }
             else
             {
                 faceDownCount++;
                 faceDownCountText.text = "Enemy: " + faceDownCount;
+                faceDownCountText.transform.DOScale(1.2f, 0.1f).OnComplete(() =>
+                {
+                    faceDownCountText.transform.DOScale(1f, 0.1f);
+                });
             }
             yield return new WaitForSeconds(0.2f);
         }
