@@ -38,6 +38,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: COLOR_FILTER EDGE_PLAIN GRADATION_COLOR2 TRANSITION_PATTERN
         passType: 0
+      - keywords: COLOR_FILTER TRANSITION_PATTERN
+        passType: 0
       - keywords: EDGE_PLAIN
         passType: 0
       - keywords: EDGE_PLAIN GRADATION_COLOR2 TRANSITION_PATTERN

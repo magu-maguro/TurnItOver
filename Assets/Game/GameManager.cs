@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using unityroom.Api;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TimerManager timerManager;
     [SerializeField] private CenterTextManager centerTextManager;
     private int timer = 100;
+
+    [SerializeField] private GameObject explainPanel;
 
     [SerializeField] private GameObject infoText;
     //private bool gameStarted = false;
@@ -37,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void OnDestroy()
@@ -47,6 +50,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+        //説明パネル表示
+        explainPanel.SetActive(true);
+        yield return StartCoroutine(WaitEnter());
+        explainPanel.SetActive(false);
         // 3
         cardManager.SetupCards(gameData.cardNum);
         centerTextManager.ShowText("3");
@@ -81,13 +88,30 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
     }
 
+    private IEnumerator WaitEnter()
+    {
+        while (!Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            yield return null;
+        }
+    }
+
     private IEnumerator JudgeGame()
     {
         // 勝敗判定
         yield return StartCoroutine(cardManager.GetFaceUpCardCount());
+        // GameDataがHardDataなら、勝利時のカード枚数を保存し、記録更新時はunityroomのランキングを更新
+        if (gameData.name == "HardData" && cardManager.faceUpCount >= gameData.threshold && (PlayerPrefs.GetInt("BestScore", 0) == 0 || cardManager.faceUpCount > PlayerPrefs.GetInt("BestScore")))
+        {
+            PlayerPrefs.SetInt("BestScore", cardManager.faceUpCount);
+            // C#スクリプトの冒頭に `using unityroom.Api;` を追加してください。
+
+            // ボードNo1にスコア123.45fを送信する。
+            UnityroomApiClient.Instance.SendScore(1, cardManager.faceUpCount, ScoreboardWriteMode.HighScoreDesc);
+        }
         yield return new WaitForSeconds(0.7f);
         // 結果表示
-        if(cardManager.faceUpCount >= gameData.threshold)
+        if (cardManager.faceUpCount >= gameData.threshold)
         {
             centerTextManager.ShowResultText("You Win!");
             StartCoroutine(SoundManager.PlaySE(5));

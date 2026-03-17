@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    //インスペクタにデータ削除ボタン追加
+    [ContextMenu("Delete Save Data")]
+    private void DeleteSaveData()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        PlayerPrefs.DeleteKey("BestScore");
+        Debug.Log("Save data deleted.");
     }
 }
