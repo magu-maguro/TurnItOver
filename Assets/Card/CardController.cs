@@ -62,7 +62,7 @@ public class CardController : MonoBehaviour
         yield return new WaitForSeconds(flipCooldown);
         canFlip = true;
 
-        Debug.Log("Card flipped! Now face " + (isFaceUp ? "up" : "down"));
+        //Debug.Log("Card flipped! Now face " + (isFaceUp ? "up" : "down"));
     }
 
     public void FloatCard()
