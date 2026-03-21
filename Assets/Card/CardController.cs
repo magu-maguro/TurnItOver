@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class CardController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class CardController : MonoBehaviour
 
     public float flipForce = 2f;       // 浮かせる力
     public float flipDuration = 0.5f;  // 回転にかける時間
+
+    public UnityEvent onFlip; // カードがひっくり返ったときのイベント
 
     void Start()
     {
@@ -43,18 +46,30 @@ public class CardController : MonoBehaviour
 
         // 2. 回転アニメーション
         float elapsed = 0f;
+        float pastElapsed = 0f;
         Quaternion startRot = transform.rotation;
         Vector3 flipAxis = direction.sqrMagnitude > 0.0001f
             ? Vector3.Cross(direction.normalized, Vector3.up)
             : transform.right;
         Quaternion endRot = Quaternion.AngleAxis(180f, flipAxis) * startRot; // direction側へ倒れ込む180°回転
 
+        onFlip.Invoke(); // カードがひっくり返ったときのイベントを呼び出す
+
         while (elapsed < flipDuration)
         {
             transform.rotation = Quaternion.Slerp(startRot, endRot, elapsed / flipDuration);
             elapsed += Time.deltaTime;
+            /*
+            if(elapsed >= flipDuration / 2f && pastElapsed < flipDuration / 2f)
+            {
+                onFlip.Invoke(); // カードがひっくり返ったときのイベントを呼び出す
+            }
+            */
+            pastElapsed += Time.deltaTime;
             yield return null;
         }
+
+        //onFlip.Invoke(); // カードがひっくり返ったときのイベントを呼び出す
 
         transform.rotation = endRot; // 最終調整
 

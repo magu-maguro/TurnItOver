@@ -232,6 +232,7 @@ MonoBehaviour:
   pauseTime: 0.2
   dropDuration: 0.1
   cooldown: 0.1
+  dropEffectPrefab: {fileID: 6847671187197783445, guid: 6555300494081614fa6b6a823cca9f64, type: 3}
   isDroppedMoment: 0
 --- !u!1 &7981492226358837877
 GameObject:

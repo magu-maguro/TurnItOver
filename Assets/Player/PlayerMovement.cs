@@ -21,12 +21,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float cooldown = 1.2f;
     bool isCooldown;
 
+    [Header("エフェクト")]
+    [SerializeField] ParticleSystem dropEffectPrefab;
+    ParticleSystem dropEffectInstance;
+
     public bool isDroppedMoment;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        dropEffectInstance = Instantiate(dropEffectPrefab, transform.position, Quaternion.identity);
+        dropEffectInstance.Stop();
     }
     void FixedUpdate()
     {
@@ -121,6 +127,9 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
         
         isDroppedMoment = true;
+        // effect
+        dropEffectInstance.transform.position = transform.position;
+        dropEffectInstance.Play();
         StartCoroutine(SoundManager.PlaySE(0));
         yield return new WaitForSeconds(0.05f);
         isDroppedMoment = false;

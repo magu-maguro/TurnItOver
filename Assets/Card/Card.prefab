@@ -339,3 +339,6 @@ MonoBehaviour:
   flipCooldown: 0.1
   flipForce: 4
   flipDuration: 0.5
+  onFlip:
+    m_PersistentCalls:
+      m_Calls: []

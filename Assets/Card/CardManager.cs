@@ -16,10 +16,23 @@ public class CardManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI faceDownCountText;
     public int faceUpCount { get; private set; }
 
+    [Header("Effect")]
+    [SerializeField] private ParticleSystem flipEffectPrefab;
+    private List<ParticleSystem> flipEffectInstances = new List<ParticleSystem>();// object pool的な
+    private int initialEffectPoolSize = 5;
+
     void Start()
     {
         faceUpCountText.gameObject.SetActive(false);
         faceDownCountText.gameObject.SetActive(false);
+
+        // エフェクトのオブジェクトプールを初期化
+        for (int i = 0; i < initialEffectPoolSize; i++)
+        {
+            ParticleSystem effect = Instantiate(flipEffectPrefab, transform);
+            effect.Stop();
+            flipEffectInstances.Add(effect);
+        }
     }
 
     public void SetupCards(int numberOfCards)
@@ -29,6 +42,8 @@ public class CardManager : MonoBehaviour
             bool isFaceUp = Random.value > 0.5f; // ランダムに表か裏を決める
             CardController newCard = Instantiate(cardPrefab, DecideRandomPos(i, numberOfCards), DecideRandomRotation(isFaceUp));
             cards.Add(newCard);
+            // flipを購読
+            newCard.onFlip.AddListener(() => PlayFlipEffect(newCard.transform.position));
             newCard.transform.parent = this.transform;
             newCard.isFaceUp = isFaceUp;
         }
@@ -96,5 +111,27 @@ public class CardManager : MonoBehaviour
         float yRotation = Random.Range(0f, 360f);
         float xRotation = isFaceUp ? 0f : 180f; // 表なら0度、裏なら180度
         return Quaternion.Euler(xRotation, yRotation, 0);
+    }
+
+    //===========================================
+
+    private void PlayFlipEffect(Vector3 position)
+    {
+        position.y -= 2f;
+        // オブジェクトプールから使用可能なエフェクトを探す
+        ParticleSystem effect = flipEffectInstances.Find(e => !e.isPlaying);
+        if (effect != null)
+        {
+            effect.transform.position = position;
+            effect.Play();
+            // 終わったら止める
+        }
+        else
+        {
+            // もし全てのエフェクトが使用中なら、新たにインスタンス化する（必要に応じて）
+            effect = Instantiate(flipEffectPrefab, position, Quaternion.identity, transform);
+            effect.Play();
+            flipEffectInstances.Add(effect);
+        }
     }
 }

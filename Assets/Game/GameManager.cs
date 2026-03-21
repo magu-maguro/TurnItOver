@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         gameData = GameSettings.Instance.currentGameData;
         timer = gameData.timeLimit;
         timerManager.SetupTimer(timer);
